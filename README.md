@@ -27,12 +27,12 @@ Output yang diharapkan: Prediksi harga penutupan Indeks LQ45 pada T+3.
 
 Data:
 
-> Harga penutupan index LQ45 pada T+3 (hanya digunakan untuk pemodelan, namun tidak digunakan saat proses prediksi).
-> Harga penutupan Indeks IHSG pada T0.
-> Harga penutupan Indeks IDX-30 pada T0.
-> Harga penutupan Indeks EIDO pada T0.
-> Harga penutupan Indeks S&P 500 pada T0.
-> Jumlah nominal transaksi pembelian domestik pada T0.
-> Jumlah nominal transaksi penjualan domestik pada T0.
-> Jumlah nominal transaksi pembelian asing pada T0.
-> Jumlah nominal transaksi penjualan asing pada T0.
+1 Harga penutupan index LQ45 pada T+3 (hanya digunakan untuk pemodelan, namun tidak digunakan saat proses prediksi).
+2 Harga penutupan Indeks IHSG pada T0.
+3 Harga penutupan Indeks IDX-30 pada T0.
+4 Harga penutupan Indeks EIDO pada T0.
+5 Harga penutupan Indeks S&P 500 pada T0.
+6 Jumlah nominal transaksi pembelian domestik pada T0.
+7 Jumlah nominal transaksi penjualan domestik pada T0.
+8 Jumlah nominal transaksi pembelian asing pada T0.
+9 Jumlah nominal transaksi penjualan asing pada T0.
