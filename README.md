@@ -38,25 +38,61 @@ Data:
 9 Jumlah nominal transaksi penjualan asing pada T0.
 
 Workflow Project (Proses Retrain Model)
+
 Berikut workflow untuk Proses Retrain Model, setelah melalui beberapa kali proses trial-error:
 
-Pengambilan data dari file csv dengan format yang sudah sesuai.
-Validasi data untuk memastikan bahwa format sudah sesuai dengan ketentuan.
-Resampling data dengan interval hari kerja (senin, selasa, rabu, kamis, jumat), sekaligus imputasi data point yang hilang dengan metode ffill.
-Membentuk kolom target yang dibentuk dari kolom lq45 yang di-shift-forward sejauh 3 data point.
-Penambahan 4 fitur baru (dom_tot,dom_net,for_tot,for_net) yang bertujuan untuk memudahkan model dalam melakukan training.
-dom_tot merupakan kolom dom_b dijumlahkan dengan kolom dom_s.
-dom_net merupakan kolom dom_b dikurangkan dengan kolom dom_s.
-for_tot merupakan kolom for_b dijumlahkan dengan kolom for_s.
-for_net merupakan kolom for_b dikurangkan dengan kolom for_s.
-Splitting data dengan komposisi:
-data train adalah data sejak awal hingga 31-12-2020.
-data validasi adalah data sejak 01-01-2021 hingga 31-07-2021.
-data test adalah data sejak 01-08-2021 hingga data terakhir.
-Penambahan fitur seasonal yang mempresentasikan trend dari kolom target dalam interval bulanan.
-Mendeteksi data outlier pada semua kolom dengan metode 1.5 x IQR, serta melakukan imputasi dengan nilai percentile 10% untuk outlier bawah, dan percentile 90% untuk outlier atas.
-Proses scaling standardisasi untuk semua kolom, kecuali kolom target.
-Proses pelatihan model dengan pustaka pmdarima, yang secara otomatis dapat menentukan parameter-parameter model SARIMAX yang terbaik.
-Evaluasi model dilakukan pada data validasi dan data test dengan cara membandingkan hasil prediksi pred dengan kolom target.
+1. Pengambilan data dari file csv dengan format yang sudah sesuai.
+2. Validasi data untuk memastikan bahwa format sudah sesuai dengan ketentuan.
+3. Resampling data dengan interval hari kerja (senin, selasa, rabu, kamis, jumat), sekaligus imputasi data point yang hilang dengan metode ffill.
+4. Membentuk kolom target yang dibentuk dari kolom lq45 yang di-shift-forward sejauh 3 data point.
+5. Penambahan 4 fitur baru (dom_tot,dom_net,for_tot,for_net) yang bertujuan untuk memudahkan model dalam melakukan training.
+    > dom_tot merupakan kolom dom_b dijumlahkan dengan kolom dom_s.
+    
+    > dom_net merupakan kolom dom_b dikurangkan dengan kolom dom_s.
+    
+    > for_tot merupakan kolom for_b dijumlahkan dengan kolom for_s.
+    
+    > for_net merupakan kolom for_b dikurangkan dengan kolom for_s.
+7. Splitting data dengan komposisi:
+    >data train adalah data sejak awal hingga 31-12-2020.
+    
+    >data validasi adalah data sejak 01-01-2021 hingga 31-07-2021.
+    
+    >data test adalah data sejak 01-08-2021 hingga data terakhir.
+8. Penambahan fitur seasonal yang mempresentasikan trend dari kolom target dalam interval bulanan.
+9. Mendeteksi data outlier pada semua kolom dengan metode 1.5 x IQR, serta melakukan imputasi dengan nilai percentile 10% untuk outlier bawah, dan percentile 90% untuk outlier atas.
+10. Proses scaling standardisasi untuk semua kolom, kecuali kolom target.
+11. Proses pelatihan model dengan pustaka pmdarima, yang secara otomatis dapat menentukan parameter-parameter model SARIMAX yang terbaik.
+12. Evaluasi model dilakukan pada data validasi dan data test dengan cara membandingkan hasil prediksi pred dengan kolom target.
 
 Berikut ilustrasinya,
+
+![image](https://github.com/diyouva/StockPredict_LQ45/assets/82955663/b551b4e6-6d6c-458f-a2cd-67fea4483ba3)
+
+Workflow (Proses Prediksi)
+
+Berikut workflow untuk Proses Prediksi:
+
+1. Penerimaan data dari User melalui API dengan format yang sudah sesuai.
+2. Validasi data untuk memastikan bahwa format sudah sesuai dengan ketentuan.
+3. Proses konversi data kedalam bentuk Pandas Dataframe.
+4. Penambahan 4 fitur baru (dom_tot,dom_net,for_tot,for_net) yang bertujuan untuk memudahkan model dalam melakukan training.
+    >dom_tot merupakan kolom dom_b dijumlahkan dengan kolom dom_s.
+
+    >dom_net merupakan kolom dom_b dikurangkan dengan kolom dom_s.
+    
+    >for_tot merupakan kolom for_b dijumlahkan dengan kolom for_s.
+    
+    >for_net merupakan kolom for_b dikurangkan dengan kolom for_s.
+5. Penambahan fitur seasonal dari pickle dataframe yang sebelumnya dibuat saat proses pemodelan (file: [root]\data\remodel\value_for_seasonal.pkl).
+6. Mendeteksi data outlier pada semua kolom, serta melakukan imputasi dengan nilai dari pickle dataframe yang sebelumnya dibuat saat proses pemodelan (file: [root]\data\remodel\value_for_outlier.pkl).
+7. Proses scaling standardisasi untuk semua kolom menggunakan pickle scaler yang sebelumnya dibuat saat proses pemodelan (file: [root]\data\remodel\scaler_x.pkl).
+8. Proses prediksi menggunakan model yang sebelumnya dibuat saat proses pemodelan (file: [root]\models\sarimax.pkl).
+9. Pengiriman hasil prediksi kembali ke User melalui API.
+
+Berikut ilustrasinya,
+
+![image](https://github.com/diyouva/StockPredict_LQ45/assets/82955663/d9cbec72-afb7-4c1b-9409-9ec33a6cacd1)
+
+
+
