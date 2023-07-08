@@ -24,3 +24,15 @@ Penjelasan:
 5. Output dari Predictor akan dikembalikan ke User melalui API.
 
 Output yang diharapkan: Prediksi harga penutupan Indeks LQ45 pada T+3.
+
+Data:
+
+> Harga penutupan index LQ45 pada T+3 (hanya digunakan untuk pemodelan, namun tidak digunakan saat proses prediksi).
+> Harga penutupan Indeks IHSG pada T0.
+> Harga penutupan Indeks IDX-30 pada T0.
+> Harga penutupan Indeks EIDO pada T0.
+> Harga penutupan Indeks S&P 500 pada T0.
+> Jumlah nominal transaksi pembelian domestik pada T0.
+> Jumlah nominal transaksi penjualan domestik pada T0.
+> Jumlah nominal transaksi pembelian asing pada T0.
+> Jumlah nominal transaksi penjualan asing pada T0.
