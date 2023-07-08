@@ -11,4 +11,5 @@ Nilai indeks LQ45 yang akan diprediksi adalah harga penutupan pada 3 hari ke dep
 Diharapkan dengan mengetahui harga penutupan pada 3 hari ke depan, User dapat melakukan tindakan yang tepat (beli atau jual) untuk memaksimalkan keuntungan mereka.
 
 Arsitektur:
+
 ![image](https://github.com/diyouva/StockPredict_LQ45/assets/82955663/07651e66-222f-47ca-bc3b-e1ac14372da4)
