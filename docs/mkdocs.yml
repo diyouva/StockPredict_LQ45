@@ -1,9 +1,0 @@
-site_name: ML-Process Final Project
-site_description: Prediksi Nilai Index LQ45
-site_author: Eric Arinoto
-copyright: eric_arinoto@2022
-nav:
-  - DOKUMENTASI: index.md
-  - TENTANG SAYA: about.md
-theme: 
-  name: readthedocs
