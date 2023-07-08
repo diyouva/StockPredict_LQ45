@@ -36,3 +36,27 @@ Data:
 7 Jumlah nominal transaksi penjualan domestik pada T0.
 8 Jumlah nominal transaksi pembelian asing pada T0.
 9 Jumlah nominal transaksi penjualan asing pada T0.
+
+Workflow Project (Proses Retrain Model)
+Berikut workflow untuk Proses Retrain Model, setelah melalui beberapa kali proses trial-error:
+
+Pengambilan data dari file csv dengan format yang sudah sesuai.
+Validasi data untuk memastikan bahwa format sudah sesuai dengan ketentuan.
+Resampling data dengan interval hari kerja (senin, selasa, rabu, kamis, jumat), sekaligus imputasi data point yang hilang dengan metode ffill.
+Membentuk kolom target yang dibentuk dari kolom lq45 yang di-shift-forward sejauh 3 data point.
+Penambahan 4 fitur baru (dom_tot,dom_net,for_tot,for_net) yang bertujuan untuk memudahkan model dalam melakukan training.
+dom_tot merupakan kolom dom_b dijumlahkan dengan kolom dom_s.
+dom_net merupakan kolom dom_b dikurangkan dengan kolom dom_s.
+for_tot merupakan kolom for_b dijumlahkan dengan kolom for_s.
+for_net merupakan kolom for_b dikurangkan dengan kolom for_s.
+Splitting data dengan komposisi:
+data train adalah data sejak awal hingga 31-12-2020.
+data validasi adalah data sejak 01-01-2021 hingga 31-07-2021.
+data test adalah data sejak 01-08-2021 hingga data terakhir.
+Penambahan fitur seasonal yang mempresentasikan trend dari kolom target dalam interval bulanan.
+Mendeteksi data outlier pada semua kolom dengan metode 1.5 x IQR, serta melakukan imputasi dengan nilai percentile 10% untuk outlier bawah, dan percentile 90% untuk outlier atas.
+Proses scaling standardisasi untuk semua kolom, kecuali kolom target.
+Proses pelatihan model dengan pustaka pmdarima, yang secara otomatis dapat menentukan parameter-parameter model SARIMAX yang terbaik.
+Evaluasi model dilakukan pada data validasi dan data test dengan cara membandingkan hasil prediksi pred dengan kolom target.
+
+Berikut ilustrasinya,
